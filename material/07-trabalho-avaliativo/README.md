@@ -1,10 +1,11 @@
 # Módulo 07 — Trabalho avaliativo: Sistema de Recomendação por Afinidade
 
-**Objetivo:** aplicar de forma integrada os módulos 01–06. O mesmo problema é resolvido em várias versões; muda só a organização dos dados na memória.
+> **Objetivo:** aplicar de forma integrada os módulos 01–06. O mesmo problema é resolvido em várias versões; muda só a organização dos dados na memória.
 
-## Arquivos
-1. [Enunciado completo](01-enunciado-sistema-de-recomendacao.md)
-2. [Regras de entrega (nome dos arquivos e cabeçalho)](02-regras-de-entrega.md)
+## Ordem de leitura
+
+1. [Enunciado completo](01-enunciado-sistema-de-recomendacao.md) — contexto, etapas, requisitos, entregas e critérios.
+2. [Regras de entrega](02-regras-de-entrega.md) — nome dos arquivos e cabeçalho com os membros do grupo.
 
 ## Etapas × módulo de revisão
 
@@ -20,4 +21,11 @@
 | 8 — Vetor dinâmico de estruturas | vetor de struct com `malloc` | [05](../05-tipos-estruturados/README.md) |
 | 9 — Vetor de ponteiros para `struct` | vetor de ponteiros | [05](../05-tipos-estruturados/README.md) |
 
-⬅️ [06 — Busca e ordenação](../06-busca-e-ordenacao/README.md) · ➡️ [08 — TAD](../08-tad-tipos-abstratos-de-dados/README.md)
+## Antes de avançar, você deve saber
+
+- Ler o enunciado inteiro antes de começar: cada etapa reaproveita a anterior.
+- Seguir à risca o nome dos arquivos e o cabeçalho pedidos nas regras de entrega.
+
+---
+
+⬅️ [06 — Busca e ordenação em vetores](../06-busca-e-ordenacao/README.md) · 🏠 [Início](../README.md) · ➡️ [08 — Tipos Abstratos de Dados (TAD)](../08-tad-tipos-abstratos-de-dados/README.md)

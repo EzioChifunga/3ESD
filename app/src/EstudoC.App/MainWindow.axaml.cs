@@ -191,7 +191,7 @@ public partial class MainWindow : Window
             aba.IrParaLinha(linha, destaque);
     }
 
-    /// <summary>Links dentro dos guias: outro arquivo de material ou outro módulo.</summary>
+    /// <summary>Links dentro dos guias: outro arquivo de material, outro módulo ou um exemplo (../../exemplos/x/README.md).</summary>
     public void AbrirLink(string pastaAtual, string url)
     {
         if (url.StartsWith("http", StringComparison.OrdinalIgnoreCase))
@@ -201,8 +201,11 @@ public partial class MainWindow : Window
         }
         var semAncora = Uri.UnescapeDataString(url.Split('#')[0]);
         var caminho = Path.GetFullPath(Path.Combine(pastaAtual, semAncora));
+        var pastaExemplo = Path.GetDirectoryName(caminho);
         if (Servicos.Catalogo?.Encontrar(caminho) is { } item)
             AbrirMaterial(item);
+        else if (Servicos.Exemplos?.Todos.FirstOrDefault(e => string.Equals(e.Pasta, pastaExemplo, StringComparison.OrdinalIgnoreCase)) is { } exemplo)
+            AbrirExemplo(exemplo);
         else
             DefinirStatus("Arquivo não faz parte da trilha: " + semAncora);
     }

@@ -1,11 +1,13 @@
 # Trilha de estudo — Estrutura de Dados em C (ESD)
 
-Todo o material de `base/` convertido para Markdown e organizado na ordem de estudo, do início até a prova. O conteúdo **não foi alterado** — só convertido e reorganizado. Cada arquivo indica no topo de onde veio (`> Fonte: base/...`).
+> Todo o material da disciplina, organizado na **ordem de estudo**, do início até a prova. O conteúdo **não foi alterado** — só convertido dos PDFs e reorganizado. Cada arquivo indica no topo de onde veio (`> Fonte: base/...`).
 
 ## Como estudar
-1. Siga os módulos **na ordem**. Cada pasta tem um `README.md` com objetivo, ordem de leitura e o que você precisa dominar antes de avançar.
-2. Método dos próprios materiais: **entender → desenhar a memória → só então codificar**. Não decore código; cubra a solução e tente prever cada linha.
-3. Nos exercícios, escreva o código antes de olhar qualquer solução.
+
+1. Comece pelos **00 — Primeiros passos** (na barra lateral): quatro exemplos curtos que ensinam a executar, depurar e corrigir erros no Estudo C.
+2. Siga os módulos **na ordem**. Cada módulo tem um guia com **objetivo**, **ordem de leitura**, **exemplos práticos** e o que você precisa dominar **antes de avançar**.
+3. Método dos próprios materiais: **entender → desenhar a memória → só então codificar**. Não decore código: cubra a solução e tente prever cada linha.
+4. Nos exercícios, escreva o código **antes** de olhar qualquer solução. Use a **🧪 Sandbox** para testar ideias rapidamente.
 
 ## Trilha
 
@@ -28,13 +30,22 @@ Todo o material de `base/` convertido para Markdown e organizado na ordem de est
 | **Parte 4 — Avaliação** | | |
 | 12 | [Prova AV1](12-prova-av1/README.md) | lista mista + simulado, com mapa questão × módulo |
 
+## Como os materiais aparecem no Estudo C
+
+- **Leitura formatada:** os PDFs aparecem com títulos, parágrafos, listas, **rótulos em negrito**, `código em linha`, blocos de código e caixas de destaque (*Atenção*, *Dica*, *Erro comum*…), separados por página.
+- **Texto original:** o botão no topo do material mostra o texto exatamente como saiu do PDF (útil para slides com desenhos e colunas).
+- **Busca** (Ctrl+Shift+F): procura em todos os materiais e abre na página do resultado.
+
 ## O que cai na AV1 (pelos simulados)
+
 - **TAD:** projetar um TAD (`.h` + `.c`) e usar TAD pronto (Conjunto, Matriz) → módulos 08–09.
 - **Pilha / fila / lista:** teoria (LIFO/FIFO), escolher a estrutura certa e manipular lista encadeada sem nó cabeça → módulos 10–11.
 
 ## Como esta pasta é gerada
+
 ```
 python ferramentas/converter.py   # base/  -> convertido/ (PDF, DOCX, TXT, .c/.h -> .md)
 python ferramentas/organizar.py   # convertido/ -> material/ (copia na ordem da trilha)
 ```
-Os `README.md` dos módulos são escritos à mão e não são sobrescritos. Ao adicionar um arquivo novo em `base/`, rode os dois scripts e inclua-o no dicionário `TRILHA` de `ferramentas/organizar.py` (o script avisa o que ficou de fora).
+
+Os guias (`README.md` de cada módulo) são gerados por `python ferramentas/gerar_guias.py`, que também lista os exemplos de `exemplos/`; os scripts acima não os sobrescrevem. Ao adicionar um arquivo novo em `base/`, rode os dois scripts e inclua-o no dicionário `TRILHA` de `ferramentas/organizar.py` (o script avisa o que ficou de fora).

@@ -1,5 +1,6 @@
 using EstudoC.Core;
 using EstudoC.Core.Compilacao;
+using EstudoC.Core.Exemplos;
 using EstudoC.Core.Materiais;
 using EstudoC.Core.Projetos;
 using EstudoC.Core.Toolchain;
@@ -13,6 +14,7 @@ public sealed class Servicos
     public ICompilador? Compilador { get; }
     public CatalogoMateriais? Catalogo { get; }
     public BuscaMateriais? Busca { get; }
+    public CatalogoExemplos? Exemplos { get; }
     public Workspace Workspace { get; } = Workspace.Padrao();
 
     public Servicos()
@@ -26,5 +28,8 @@ public sealed class Servicos
             Catalogo = new CatalogoMateriais(pasta);
             Busca = new BuscaMateriais(Catalogo);
         }
+
+        if (CatalogoExemplos.Localizar() is { } exemplos)
+            Exemplos = new CatalogoExemplos(exemplos);
     }
 }

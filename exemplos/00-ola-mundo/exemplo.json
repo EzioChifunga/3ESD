@@ -1,0 +1,7 @@
+{
+  "titulo": "Olá, mundo — entrada e saída",
+  "modulo": "00",
+  "modo": "Executar",
+  "descricao": "Primeiro programa: lê dados com scanf e mostra com printf.",
+  "entrada": "Ana\n19\n1.68"
+}

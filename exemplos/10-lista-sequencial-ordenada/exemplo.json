@@ -1,0 +1,7 @@
+{
+  "titulo": "Lista sequencial ordenada sem repetição",
+  "modulo": "10",
+  "modo": "Executar",
+  "descricao": "Lista em vetor: busca binária da posição, inclusão abrindo espaço e exclusão fechando espaço.",
+  "entrada": "1 30\n1 10\n1 20\n1 20\n2 10\n3 25\n0"
+}

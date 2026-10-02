@@ -1,0 +1,6 @@
+{
+  "titulo": "Fila sequencial circular: atendimento por ordem de chegada",
+  "modulo": "11",
+  "modo": "Depurar",
+  "descricao": "Fila em vetor circular (FIFO): entra no fim, sai do início, e os índices dão a volta no vetor."
+}

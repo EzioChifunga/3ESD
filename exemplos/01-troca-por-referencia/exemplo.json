@@ -1,0 +1,6 @@
+{
+  "titulo": "Ponteiros: passagem por valor × por referência",
+  "modulo": "01",
+  "modo": "Depurar",
+  "descricao": "Por que trocaValor não troca nada e trocaRef troca? Veja endereços e valores no depurador."
+}

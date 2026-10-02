@@ -5,6 +5,7 @@
 | Pasta | O que tem |
 |---|---|
 | [`material/`](material/README.md) | Trilha de estudo em Markdown (12 módulos, do início até a prova). É o conteúdo embutido no app. |
+| [`exemplos/`](exemplos/) | 21 exemplos prontos por módulo e por modo (Executar, Depurar, Corrigir erros), cada um com `README.md` e `exemplo.json`. |
 | [`app/`](app/) | Código do aplicativo (C# .NET 10 + Avalonia). |
 | [`build/`](build/) | `build.ps1` (gera o instalador) e `toolchain.json` (versão fixa do GCC/GDB). |
 | [`ferramentas/`](ferramentas/) | Scripts Python que converteram os PDFs/DOCX originais em `material/`. |
@@ -33,6 +34,11 @@ No computador de destino não é preciso ter nada instalado: nem .NET, nem compi
 
 ## O que o aplicativo faz
 
+- **Leitura formatada:** os materiais convertidos dos PDFs aparecem formatados, com títulos, listas, blocos de código em fonte monoespaçada e separação por página. O botão *Texto original* mostra o layout exato extraído do PDF.
+- **Exemplos** em cada módulo da trilha, mais "00 — Primeiros passos", com um exemplo para cada modo: ▶ Executar, 🐞 Depurar e 🩹 Corrigir erros. Cada exemplo tem um guia (o que observar, passo a passo) ao lado do código, e os botões *Abrir na sandbox* e *Abrir como projeto*.
+- **Sandbox** (botão 🧪 no topo): uma área livre para testar qualquer código, em `Documentos\EstudoC\sandbox`. Tem *Carregar exemplo…* e *Recomeçar*.
+- **Tema** claro, escuro ou do sistema (botão no topo, fica salvo). O realce de sintaxe acompanha o tema.
+- **Tela cheia** (Alt+Enter; Esc sai). O app abre maximizado; em tela cheia aparece o botão *Minimizar*.
 - **Trilha de estudo:** os módulos 01 a 12 ficam na barra lateral e abrem em abas. Os guias têm links clicáveis.
 - **Busca em todos os materiais** (Ctrl+Shift+F): ignora acentos e maiúsculas e mostra módulo, arquivo e página do PDF original. Um clique abre o material na linha encontrada. Dentro de um texto, Ctrl+F procura só nele.
 - **Projetos em C:** ficam em `Documentos\EstudoC\projetos`, com os modelos "programa simples" e "TAD (.h + .c + main)". O botão *Abrir como projeto* nos códigos do módulo 09 copia o TAD junto com as dependências que ele inclui. Por exemplo, `instante.h` traz `data` e `horario`.

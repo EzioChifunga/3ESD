@@ -1,0 +1,7 @@
+{
+  "titulo": "Vetores paralelos: média da turma",
+  "modulo": "02",
+  "modo": "Executar",
+  "descricao": "Lê matrícula e 3 notas de cada aluno em vetores paralelos e mostra quem ficou acima da média da turma.",
+  "entrada": "1010 7.5 8.5 7.8\n1033 8.4 9.2 6.8\n1080 9.1 10 9.5\n1320 4.0 5.2 4.6"
+}

@@ -1,0 +1,8 @@
+{
+  "titulo": "Corrija os erros de compilação",
+  "modulo": "00",
+  "modo": "CorrigirErros",
+  "descricao": "Programa com 5 erros comuns de propósito. Use os sublinhados, a aba Problemas e as dicas para corrigir.",
+  "compila": false,
+  "entrada": "4 7"
+}

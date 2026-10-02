@@ -1,0 +1,7 @@
+{
+  "titulo": "Matriz alocada dinamicamente (int**)",
+  "modulo": "04",
+  "modo": "Depurar",
+  "descricao": "Cria a matriz linha por linha com malloc, preenche, soma linhas e colunas e libera na ordem certa.",
+  "entrada": "3 4"
+}

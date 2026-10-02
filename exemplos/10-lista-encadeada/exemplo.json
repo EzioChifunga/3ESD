@@ -1,0 +1,6 @@
+{
+  "titulo": "Lista simplesmente encadeada (sem cabeça)",
+  "modulo": "10",
+  "modo": "Depurar",
+  "descricao": "Inserção no início e ordenada, busca, remoção e liberação — acompanhe os ponteiros prox no depurador."
+}

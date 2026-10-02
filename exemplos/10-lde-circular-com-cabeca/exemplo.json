@@ -1,0 +1,6 @@
+{
+  "titulo": "Lista duplamente encadeada circular com nó cabeça",
+  "modulo": "10",
+  "modo": "Depurar",
+  "descricao": "Com o nó cabeça (sentinela) não existe caso especial: inserir e remover são sempre as mesmas 4 atribuições."
+}

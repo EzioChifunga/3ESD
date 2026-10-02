@@ -1,0 +1,7 @@
+{
+  "titulo": "Strings: escrevendo as funções da string.h",
+  "modulo": "03",
+  "modo": "Executar",
+  "descricao": "Implementa strlen, strcpy e strcmp na mão (iterativo e recursivo) e mostra o papel do terminador.",
+  "entrada": "Estrutura de Dados"
+}

@@ -1,0 +1,6 @@
+{
+  "titulo": "TAD Retângulo usando o TAD Ponto (composição)",
+  "modulo": "08",
+  "modo": "Depurar",
+  "descricao": "Um TAD que guarda dois Pontos: o Retângulo só usa a interface do Ponto, nunca seus campos."
+}

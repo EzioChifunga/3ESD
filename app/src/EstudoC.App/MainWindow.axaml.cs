@@ -5,6 +5,7 @@ using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using EstudoC.App.Abas;
 using EstudoC.Core;
+using EstudoC.Core.Exemplos;
 using EstudoC.Core.Materiais;
 using EstudoC.Core.Projetos;
 
@@ -28,9 +29,19 @@ public partial class MainWindow : Window
                 AbrirBusca(CaixaBusca.Text ?? "");
         };
         BotaoBuscar.Click += (_, _) => AbrirBusca(CaixaBusca.Text ?? "");
-        BotaoNovoProjeto.Click +=async (_, _) => await NovoProjetoAsync();
+        BotaoNovoProjeto.Click += async (_, _) => await NovoProjetoAsync();
         BotaoAbrirPasta.Click += async (_, _) => await AbrirPastaAsync();
         BotaoInicio.Click += (_, _) => AbrirInicio();
+        BotaoSandbox.Click += async (_, _) => await AbrirSandboxAsync();
+        BotaoTema.Click += (_, _) => { Preferencias.Atual.ProximoTema(); AtualizarBotaoTema(); };
+        BotaoTelaCheia.Click += (_, _) => AlternarTelaCheia();
+        BotaoMinimizar.Click += (_, _) => WindowState = WindowState.Minimized;
+        AtualizarBotaoTema();
+        PropertyChanged += (_, e) =>
+        {
+            if (e.Property == WindowStateProperty)
+                AtualizarBotaoTelaCheia();
+        };
         ListaProjetos.SelectionChanged += (_, _) =>
         {
             if (ListaProjetos.SelectedItem is ListBoxItem { Tag: Projeto p })
@@ -65,23 +76,42 @@ public partial class MainWindow : Window
         {
             new() { Header = "🏠 " + catalogo.Inicio.Titulo, Tag = catalogo.Inicio },
         };
+        var primeirosPassos = ItensExemplo("00");
+        if (primeirosPassos.Count > 0)
+            raiz.Add(new TreeViewItem { Header = "00 — Primeiros passos (exemplos)", ItemsSource = primeirosPassos, IsExpanded = true });
         foreach (var modulo in catalogo.Modulos)
         {
+            var numero = Path.GetFileName(modulo.Pasta)[..2];
             var no = new TreeViewItem { Header = modulo.Titulo.Replace("Módulo ", ""), Tag = modulo.Guia };
             no.ItemsSource = modulo.Itens.Select(i => new TreeViewItem
             {
                 Header = Icone(i.Tipo) + " " + i.Titulo,
                 Tag = i,
-            }).ToList();
+            }).Concat(ItensExemplo(numero)).ToList();
             raiz.Add(no);
         }
         ArvoreTrilha.ItemsSource = raiz;
         ArvoreTrilha.SelectionChanged += (_, _) =>
         {
-            if (ArvoreTrilha.SelectedItem is TreeViewItem { Tag: ItemMaterial item })
-                AbrirMaterial(item);
+            switch (ArvoreTrilha.SelectedItem)
+            {
+                case TreeViewItem { Tag: ItemMaterial item }:
+                    AbrirMaterial(item);
+                    break;
+                case TreeViewItem { Tag: Exemplo exemplo }:
+                    AbrirExemplo(exemplo);
+                    break;
+            }
         };
     }
+
+    private List<TreeViewItem> ItensExemplo(string modulo) =>
+        Servicos.Exemplos?.DoModulo(modulo).Select(e =>
+        {
+            var item = new TreeViewItem { Header = "🧪 Exemplo: " + e.Titulo, Tag = e };
+            ToolTip.SetTip(item, e.ModoTexto + " — " + e.Descricao);
+            return item;
+        }).ToList() ?? [];
 
     private static string Icone(TipoMaterial tipo) => tipo switch
     {
@@ -212,6 +242,80 @@ public partial class MainWindow : Window
         DefinirStatus($"Projeto '{projeto.Nome}' criado com cópias de: {string.Join(", ", projeto.Arquivos().Select(Path.GetFileName))}");
     }
 
+    // ---------- exemplos e sandbox ----------
+
+    public void AbrirExemplo(Exemplo exemplo)
+    {
+        var chave = "exemplo:" + exemplo.Id;
+        AbrirAba(chave, "🧪 " + exemplo.Titulo, AbaExistente<AbaExemplo>(chave) ?? new AbaExemplo(exemplo, this));
+    }
+
+    public void AbrirExemploComoProjeto(Exemplo exemplo)
+    {
+        var projeto = Servicos.Workspace.CriarDeExemplo(exemplo);
+        AtualizarProjetos();
+        AbrirProjeto(projeto);
+        DefinirStatus($"Projeto '{projeto.Nome}' criado em {projeto.Pasta} a partir do exemplo.");
+    }
+
+    private const string ChaveSandbox = "sandbox";
+
+    /// <summary>Abre a sandbox. Com um exemplo, troca o conteúdo dela pelo exemplo.</summary>
+    public async Task AbrirSandboxAsync(Exemplo? exemplo = null)
+    {
+        var sandbox = Workspace.Sandbox();
+        if (Servicos.Compilador is null)
+        {
+            AbrirProjeto(sandbox); // mostra o aviso de compilador ausente
+            return;
+        }
+        if (exemplo is not null)
+        {
+            await FecharAbaAsync(ChaveSandbox); // salva e encerra o que estiver rodando antes de trocar
+            Workspace.SubstituirSandbox(sandbox, exemplo.Arquivos());
+            DefinirStatus($"Sandbox carregada com o exemplo “{exemplo.Titulo}”.");
+        }
+        var aba = AbaExistente<AbaProjeto>(ChaveSandbox) ?? new AbaProjeto(sandbox, this, ehSandbox: true);
+        AbrirAba(ChaveSandbox, "🧪 Sandbox", aba);
+    }
+
+    public async Task EscolherExemploParaSandboxAsync()
+    {
+        if (Servicos.Exemplos is null)
+            return;
+        if (await Dialogos.EscolherExemploAsync(this, Servicos.Exemplos) is { } exemplo)
+            await AbrirSandboxAsync(exemplo);
+    }
+
+    public async Task RecomecarSandboxAsync()
+    {
+        if (!await Dialogos.ConfirmarAsync(this, "Recomeçar a sandbox", "Apagar todo o código da sandbox e voltar ao “Olá mundo”?"))
+            return;
+        await FecharAbaAsync(ChaveSandbox);
+        Workspace.RecomecarSandbox(Workspace.Sandbox());
+        await AbrirSandboxAsync();
+    }
+
+    private async Task FecharAbaAsync(string chave)
+    {
+        if (Abas.Items.OfType<TabItem>().FirstOrDefault(t => (string?)t.Tag == chave) is { } aba)
+            await FecharAbaAsync(aba);
+    }
+
+    // ---------- tema e tela cheia ----------
+
+    private void AtualizarBotaoTema() => BotaoTema.Content = Preferencias.Atual.TemaTexto;
+
+    private void AlternarTelaCheia() =>
+        WindowState = WindowState == WindowState.FullScreen ? WindowState.Maximized : WindowState.FullScreen;
+
+    private void AtualizarBotaoTelaCheia()
+    {
+        var cheia = WindowState == WindowState.FullScreen;
+        BotaoTelaCheia.Content = cheia ? "🗗 Sair da tela cheia" : "⛶ Tela cheia";
+        BotaoMinimizar.IsVisible = cheia; // fora da tela cheia a barra de título do Windows já tem minimizar
+    }
+
     private async Task NovoProjetoAsync()
     {
         if (await Dialogos.NovoProjetoAsync(this) is not { } escolha)
@@ -232,6 +336,18 @@ public partial class MainWindow : Window
 
     private void AoTeclar(object? sender, KeyEventArgs e)
     {
+        if (e.Key == Key.Enter && e.KeyModifiers == KeyModifiers.Alt)
+        {
+            AlternarTelaCheia();
+            e.Handled = true;
+            return;
+        }
+        if (e.Key == Key.Escape && WindowState == WindowState.FullScreen)
+        {
+            WindowState = WindowState.Maximized;
+            e.Handled = true;
+            return;
+        }
         if (e.Key == Key.F && e.KeyModifiers == (KeyModifiers.Control | KeyModifiers.Shift))
         {
             CaixaBusca.Focus();

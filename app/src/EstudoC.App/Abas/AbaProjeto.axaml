@@ -5,7 +5,7 @@
     <!-- barra de ferramentas -->
     <Border DockPanel.Dock="Top" Padding="6,5" BorderThickness="0,0,0,1"
             BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
-      <WrapPanel>
+      <WrapPanel Name="BarraFerramentas">
         <Button Name="BotaoSalvar" Classes="ferramenta" Content="💾 Salvar" ToolTip.Tip="Salvar todos os arquivos (Ctrl+S)" />
         <Button Name="BotaoCompilar" Classes="ferramenta" Content="🔨 Compilar" ToolTip.Tip="Compilar (Ctrl+B)" />
         <Button Name="BotaoExecutar" Classes="ferramenta" Content="▶ Executar" ToolTip.Tip="Compilar e executar no terminal abaixo (Ctrl+F5)" />

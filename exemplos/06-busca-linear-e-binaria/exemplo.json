@@ -1,0 +1,7 @@
+{
+  "titulo": "Busca linear × busca binária",
+  "modulo": "06",
+  "modo": "Executar",
+  "descricao": "Compara quantas comparações cada busca faz para achar (ou não) um valor em um vetor ordenado.",
+  "entrada": "73\n4"
+}

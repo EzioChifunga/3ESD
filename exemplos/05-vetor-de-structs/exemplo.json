@@ -1,0 +1,7 @@
+{
+  "titulo": "Vetor de structs (alocado dinamicamente)",
+  "modulo": "05",
+  "modo": "Executar",
+  "descricao": "Cadastro de pessoas em um vetor de struct criado com malloc; busca pelo nome e pela maior idade.",
+  "entrada": "3\nAna 21 F\nBruno 19 M\nCarla 25 F\nBruno"
+}

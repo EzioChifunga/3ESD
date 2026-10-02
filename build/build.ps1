@@ -99,7 +99,7 @@ if (Test-Path $Dist) { Remove-Item $Dist -Recurse -Force }
 Executar $dotnet @('publish', $Projeto, '-c', 'Release', '-r', 'win-x64', '--self-contained', 'true',
                    '-p:PublishSingleFile=false', "-p:Version=$Versao", '-o', $Publicado, '--nologo', '-v', 'q')
 
-Etapa 'Embutindo compilador e materiais'
+Etapa 'Embutindo compilador, materiais e exemplos'
 $destinoToolchain = Join-Path $Publicado 'toolchain'
 Copy-Item $pastaToolchain $destinoToolchain -Recurse
 foreach ($padrao in $cfg.remover) {
@@ -108,6 +108,7 @@ foreach ($padrao in $cfg.remover) {
 }
 Remove-Item (Join-Path $destinoToolchain '.versao-estudoc') -ErrorAction SilentlyContinue
 Copy-Item (Join-Path $Raiz 'material') (Join-Path $Publicado 'material') -Recurse
+Copy-Item (Join-Path $Raiz 'exemplos') (Join-Path $Publicado 'exemplos') -Recurse
 
 $tamanho = (Get-ChildItem $Publicado -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
 Write-Host ("Tamanho instalado: {0:N0} MB" -f $tamanho)

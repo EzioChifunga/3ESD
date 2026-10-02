@@ -1,0 +1,6 @@
+{
+  "titulo": "Vetor de ponteiros para structs",
+  "modulo": "05",
+  "modo": "Depurar",
+  "descricao": "Cada pessoa é alocada separadamente e o vetor guarda só os endereços; ordenar troca ponteiros, não structs inteiras."
+}

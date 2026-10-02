@@ -1,0 +1,7 @@
+{
+  "titulo": "Achando um erro de execução (falha de segmentação)",
+  "modulo": "00",
+  "modo": "Depurar",
+  "descricao": "Compila sem erros, mas quebra ao executar. O depurador mostra a linha exata e o ponteiro inválido.",
+  "terminaComErro": true
+}

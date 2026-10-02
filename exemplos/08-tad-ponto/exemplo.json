@@ -1,0 +1,6 @@
+{
+  "titulo": "TAD Ponto: interface (.h) × implementação (.c)",
+  "modulo": "08",
+  "modo": "Executar",
+  "descricao": "O TAD clássico da apostila: tipo opaco, cria/libera, acesso controlado e uma operação (distância)."
+}

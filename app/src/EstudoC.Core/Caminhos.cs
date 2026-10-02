@@ -9,6 +9,10 @@ public static class Caminhos
     public static string Projetos =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EstudoC", "projetos");
 
+    /// <summary>Área livre de testes (Documentos\EstudoC\sandbox).</summary>
+    public static string Sandbox =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EstudoC", "sandbox");
+
     /// <summary>Dados internos (runtime, verificação de sintaxe).</summary>
     public static string DadosLocais =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "EstudoC", "dados");

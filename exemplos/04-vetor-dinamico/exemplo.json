@@ -1,0 +1,7 @@
+{
+  "titulo": "Alocação dinâmica: vetor do tamanho que o usuário pedir",
+  "modulo": "04",
+  "modo": "Executar",
+  "descricao": "malloc de um vetor com n lido do teclado, realloc para crescer e free no final — sempre testando o retorno.",
+  "entrada": "4\n10 20 30 40\n2\n50 60"
+}

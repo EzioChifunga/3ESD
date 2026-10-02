@@ -1,0 +1,6 @@
+{
+  "titulo": "Depurando passo a passo",
+  "modulo": "00",
+  "modo": "Depurar",
+  "descricao": "Use pontos de parada e a execução linha a linha para ver as variáveis mudando dentro de um laço e de uma função."
+}

@@ -50,7 +50,7 @@ public partial class AbaProjeto : UserControl
     private readonly DispatcherTimer _timerVerificacao = new() { Interval = TimeSpan.FromMilliseconds(900) };
     private CancellationTokenSource? _ctsVerificacao;
 
-    public AbaProjeto(Projeto projeto, MainWindow janela)
+    public AbaProjeto(Projeto projeto, MainWindow janela, bool ehSandbox = false)
     {
         AvaloniaXamlLoader.Load(this);
         _janela = janela;
@@ -79,6 +79,8 @@ public partial class AbaProjeto : UserControl
         Controle<ContentControl>("AreaTerminal").Content = _terminal;
 
         LigarEventos();
+        if (ehSandbox)
+            AdicionarBotoesSandbox();
         CarregarArquivos();
         AtualizarBotoes();
         EscreverTerminal($"Projeto: {_projeto.Pasta}\nUse ▶ Executar (Ctrl+F5) para rodar aqui ou 🐞 Depurar (F5) para ir linha a linha.\n" +
@@ -664,6 +666,22 @@ public partial class AbaProjeto : UserControl
         };
 
         AddHandler(KeyDownEvent, AoTeclar, RoutingStrategies.Tunnel);
+    }
+
+    /// <summary>Na sandbox: carregar um exemplo ou voltar ao "Olá mundo".</summary>
+    private void AdicionarBotoesSandbox()
+    {
+        var barra = Controle<WrapPanel>("BarraFerramentas");
+        var carregar = new Button { Content = "📚 Carregar exemplo…", Classes = { "ferramenta" } };
+        ToolTip.SetTip(carregar, "Substitui o código da sandbox por um dos exemplos prontos.");
+        carregar.Click += async (_, _) => await _janela.EscolherExemploParaSandboxAsync();
+        var recomecar = new Button { Content = "🧹 Recomeçar", Classes = { "ferramenta" } };
+        ToolTip.SetTip(recomecar, "Apaga o código da sandbox e volta ao \"Olá mundo\".");
+        recomecar.Click += async (_, _) => await _janela.RecomecarSandboxAsync();
+        var separador = new Border { Width = 1, Margin = new Thickness(6, 2), Background = Brushes.Gray, Opacity = 0.4 };
+        barra.Children.Insert(0, separador);
+        barra.Children.Insert(0, recomecar);
+        barra.Children.Insert(0, carregar);
     }
 
     private void Botao(string nome, Func<Task> acao) =>

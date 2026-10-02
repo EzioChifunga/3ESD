@@ -76,6 +76,40 @@ public sealed class Workspace(string raiz)
         return resultado;
     }
 
+    /// <summary>Cria um projeto com uma cópia dos arquivos do exemplo.</summary>
+    public Projeto CriarDeExemplo(Exemplos.Exemplo exemplo) =>
+        CriarDeArquivos(exemplo.Id, exemplo.Arquivos());
+
+    // ---------------- sandbox ----------------
+
+    /// <summary>A sandbox: um único projeto livre para testes rápidos. Criada com "Olá mundo" se não existir.</summary>
+    public static Projeto Sandbox(string? pasta = null)
+    {
+        var projeto = new Projeto(pasta ?? Caminhos.Sandbox);
+        if (!Directory.Exists(projeto.Pasta) || projeto.ArquivosFonte().Count == 0)
+            SubstituirConteudo(projeto, Modelos.Para(ModeloProjeto.OlaMundo).Select(m => (m.Item1, m.Item2)));
+        return projeto;
+    }
+
+    /// <summary>Troca TODO o código da sandbox pelos arquivos dados (ex.: de um exemplo).</summary>
+    public static void SubstituirSandbox(Projeto sandbox, IEnumerable<string> arquivos) =>
+        SubstituirConteudo(sandbox, arquivos.Select(a => (Path.GetFileName(a), File.ReadAllText(a))));
+
+    /// <summary>Volta a sandbox para o "Olá mundo".</summary>
+    public static void RecomecarSandbox(Projeto sandbox) =>
+        SubstituirConteudo(sandbox, Modelos.Para(ModeloProjeto.OlaMundo).Select(m => (m.Item1, m.Item2)));
+
+    private static void SubstituirConteudo(Projeto projeto, IEnumerable<(string Nome, string Conteudo)> arquivos)
+    {
+        Directory.CreateDirectory(projeto.Pasta);
+        foreach (var antigo in projeto.Arquivos())
+            File.Delete(antigo);
+        if (Directory.Exists(projeto.PastaBuild))
+            try { Directory.Delete(projeto.PastaBuild, true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+        foreach (var (nome, conteudo) in arquivos)
+            File.WriteAllText(Path.Combine(projeto.Pasta, nome), conteudo);
+    }
+
     /// <summary>Evita sobrescrever: "lista", "lista-2", "lista-3"…</summary>
     public string NomeLivre(string nome)
     {

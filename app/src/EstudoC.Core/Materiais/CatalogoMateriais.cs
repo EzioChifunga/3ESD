@@ -79,7 +79,7 @@ public sealed partial class CatalogoMateriais
     }
 
     private static string? TituloDoMarkdown(string texto) =>
-        texto.Split('\n').Select(l => l.Trim()).FirstOrDefault(l => l.StartsWith("# "))?[2..].Trim();
+        texto.Split('\n').Select(l => l.Trim()).FirstOrDefault(l => l.StartsWith("# "))?[2..].Replace("`", "").Trim();
 
     private static Dictionary<string, string> TitulosDosLinks(string readme)
     {

@@ -1,0 +1,7 @@
+{
+  "titulo": "Pilha sequencial: parênteses balanceados",
+  "modulo": "11",
+  "modo": "Executar",
+  "descricao": "Usa uma pilha (LIFO) para conferir se ( ) [ ] { } abrem e fecham na ordem certa.",
+  "entrada": "{ v[(i+1)] = (a*b); }\n(a + b]\n((x)"
+}

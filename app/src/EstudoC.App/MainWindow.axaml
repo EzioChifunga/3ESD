@@ -3,7 +3,8 @@
         x:Class="EstudoC.App.MainWindow"
         Title="Estudo C"
         Width="1400" Height="880" MinWidth="900" MinHeight="600"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
   <DockPanel>
     <!-- barra superior -->
     <Border DockPanel.Dock="Top" Padding="10,6" BorderThickness="0,0,0,1"
@@ -13,10 +14,14 @@
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
           <Button Name="BotaoNovoProjeto" Classes="ferramenta" Content="＋ Novo projeto" ToolTip.Tip="Criar um projeto em C" />
           <Button Name="BotaoAbrirPasta" Classes="ferramenta" Content="Abrir pasta…" ToolTip.Tip="Abrir uma pasta com arquivos .c/.h como projeto" />
+          <Button Name="BotaoSandbox" Classes="ferramenta" Content="🧪 Sandbox" ToolTip.Tip="Área livre para testar código e carregar exemplos" />
           <Button Name="BotaoInicio" Classes="ferramenta" Content="Trilha" ToolTip.Tip="Abrir o guia da trilha de estudo" />
+          <Button Name="BotaoTema" Classes="ferramenta" ToolTip.Tip="Alternar tema: do sistema, claro ou escuro" />
+          <Button Name="BotaoTelaCheia" Classes="ferramenta" Content="⛶ Tela cheia" ToolTip.Tip="Tela cheia (Alt+Enter). Esc sai da tela cheia." />
+          <Button Name="BotaoMinimizar" Classes="ferramenta" Content="▁ Minimizar" IsVisible="False" ToolTip.Tip="Minimizar a janela" />
         </StackPanel>
         <TextBox Name="CaixaBusca" DockPanel.Dock="Left" Watermark="🔎  Buscar em todos os materiais (Ctrl+Shift+F)"
-                 Width="460" />
+                 Width="380" />
         <Button Name="BotaoBuscar" Classes="ferramenta" Content="Buscar" Margin="6,0,0,0" HorizontalAlignment="Left" />
       </DockPanel>
     </Border>
@@ -31,7 +36,7 @@
       <!-- painel lateral -->
       <Grid Grid.Column="0" RowDefinitions="Auto,*,Auto,Auto,220">
         <TextBlock Grid.Row="0" Classes="titulo" Text="TRILHA DE ESTUDO" />
-        <TreeView Grid.Row="1" Name="ArvoreTrilha" FontSize="13" />
+        <TreeView Grid.Row="1" Name="ArvoreTrilha" FontSize="13" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
         <TextBlock Grid.Row="2" Classes="titulo" Text="MEUS PROJETOS" />
         <TextBlock Grid.Row="3" Name="PastaProjetos" FontSize="11" Opacity="0.6" Margin="8,0,8,4"
                    TextTrimming="CharacterEllipsis" />

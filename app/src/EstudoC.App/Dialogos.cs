@@ -39,6 +39,39 @@ public static class Dialogos
         return (nome.Text.Trim(), tad.IsChecked == true ? ModeloProjeto.Tad : ModeloProjeto.OlaMundo);
     }
 
+    public static async Task<bool> ConfirmarAsync(Window dono, string titulo, string mensagem)
+    {
+        var (janela, ok) = Montar(titulo, new TextBlock { Text = mensagem, TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 480 });
+        return await Mostrar(dono, janela, ok);
+    }
+
+    /// <summary>Lista os exemplos (agrupados por módulo) para escolher um.</summary>
+    public static async Task<Core.Exemplos.Exemplo?> EscolherExemploAsync(Window dono, Core.Exemplos.CatalogoExemplos catalogo)
+    {
+        var lista = new ListBox { Height = 420, Width = 620 };
+        lista.ItemsSource = catalogo.Todos.Select(e => new ListBoxItem
+        {
+            Tag = e,
+            Content = new StackPanel
+            {
+                Spacing = 1,
+                Children =
+                {
+                    new TextBlock { Text = $"{(e.Modulo == "00" ? "Primeiros passos" : "Módulo " + e.Modulo)}  ·  {e.ModoTexto}", FontSize = 11, Opacity = 0.65 },
+                    new TextBlock { Text = e.Titulo, FontWeight = Avalonia.Media.FontWeight.SemiBold },
+                },
+            },
+        }).ToList();
+        lista.SelectedIndex = 0;
+        var (janela, ok) = Montar("Carregar exemplo na sandbox", new StackPanel
+        {
+            Spacing = 8,
+            Children = { new TextBlock { Text = "O código atual da sandbox será substituído pelo exemplo escolhido." }, lista },
+        });
+        lista.DoubleTapped += (_, _) => janela.Close(true);
+        return await Mostrar(dono, janela, ok) && lista.SelectedItem is ListBoxItem { Tag: Core.Exemplos.Exemplo escolhido } ? escolhido : null;
+    }
+
     public static async Task AvisarAsync(Window dono, string titulo, string mensagem)
     {
         var (janela, ok) = Montar(titulo, new TextBlock { Text = mensagem, TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 480 }, cancelar: false);

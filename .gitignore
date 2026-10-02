@@ -1,0 +1,12 @@
+# materiais originais e conversão intermediária (regeneráveis / não versionados)
+base/
+convertido/
+
+# dependências baixadas e saída de build
+vendor/
+dist/
+bin/
+obj/
+.vs/
+*.user
+TestResults/

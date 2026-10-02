@@ -1,0 +1,27 @@
+{
+  "nome": "w64devkit",
+  "versao": "2.10.0",
+  "url": "https://github.com/skeeto/w64devkit/releases/download/v2.10.0/w64devkit-x64-2.10.0.7z.exe",
+  "sha256": "18d0a4c71a166f8401ab6305781bec5882b40b5e06ba9807c61cb5f3b3c6325e",
+  "remover": [
+    "lib32",
+    "src",
+    "Dockerfile",
+    "include/c++",
+    "share/vim",
+    "share/nsis",
+    "share/cmake-*",
+    "bin/i686-w64-mingw32-*",
+    "bin/cmake.exe",
+    "bin/ccmake.exe",
+    "bin/cpack.exe",
+    "bin/ctest.exe",
+    "bin/cmcldeps.exe",
+    "bin/dcmake.exe",
+    "bin/gfortran.exe",
+    "bin/vim.exe",
+    "bin/gvim.bat",
+    "libexec/gcc/x86_64-w64-mingw32/*/f951.exe",
+    "libexec/gcc/x86_64-w64-mingw32/*/cc1plus.exe"
+  ]
+}

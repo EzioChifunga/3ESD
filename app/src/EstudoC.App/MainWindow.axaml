@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="EstudoC.App.MainWindow"
+        Title="Estudo C"
+        Width="1400" Height="880" MinWidth="900" MinHeight="600"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel>
+    <!-- barra superior -->
+    <Border DockPanel.Dock="Top" Padding="10,6" BorderThickness="0,0,0,1"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+      <DockPanel>
+        <TextBlock Text="Estudo C" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="2,0,18,0" />
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+          <Button Name="BotaoNovoProjeto" Classes="ferramenta" Content="＋ Novo projeto" ToolTip.Tip="Criar um projeto em C" />
+          <Button Name="BotaoAbrirPasta" Classes="ferramenta" Content="Abrir pasta…" ToolTip.Tip="Abrir uma pasta com arquivos .c/.h como projeto" />
+          <Button Name="BotaoInicio" Classes="ferramenta" Content="Trilha" ToolTip.Tip="Abrir o guia da trilha de estudo" />
+        </StackPanel>
+        <TextBox Name="CaixaBusca" DockPanel.Dock="Left" Watermark="🔎  Buscar em todos os materiais (Ctrl+Shift+F)"
+                 Width="460" />
+        <Button Name="BotaoBuscar" Classes="ferramenta" Content="Buscar" Margin="6,0,0,0" HorizontalAlignment="Left" />
+      </DockPanel>
+    </Border>
+
+    <!-- barra de status -->
+    <Border DockPanel.Dock="Bottom" Padding="10,3" BorderThickness="0,1,0,0"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+      <TextBlock Name="BarraStatus" FontSize="12" TextTrimming="CharacterEllipsis" />
+    </Border>
+
+    <Grid ColumnDefinitions="310,4,*">
+      <!-- painel lateral -->
+      <Grid Grid.Column="0" RowDefinitions="Auto,*,Auto,Auto,220">
+        <TextBlock Grid.Row="0" Classes="titulo" Text="TRILHA DE ESTUDO" />
+        <TreeView Grid.Row="1" Name="ArvoreTrilha" FontSize="13" />
+        <TextBlock Grid.Row="2" Classes="titulo" Text="MEUS PROJETOS" />
+        <TextBlock Grid.Row="3" Name="PastaProjetos" FontSize="11" Opacity="0.6" Margin="8,0,8,4"
+                   TextTrimming="CharacterEllipsis" />
+        <ListBox Grid.Row="4" Name="ListaProjetos" FontSize="13" />
+      </Grid>
+
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+
+      <TabControl Grid.Column="2" Name="Abas" Padding="0" />
+    </Grid>
+  </DockPanel>
+</Window>

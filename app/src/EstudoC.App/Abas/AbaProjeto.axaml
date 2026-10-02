@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EstudoC.App.Abas.AbaProjeto">
+  <DockPanel>
+    <!-- barra de ferramentas -->
+    <Border DockPanel.Dock="Top" Padding="6,5" BorderThickness="0,0,0,1"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+      <WrapPanel>
+        <Button Name="BotaoSalvar" Classes="ferramenta" Content="💾 Salvar" ToolTip.Tip="Salvar todos os arquivos (Ctrl+S)" />
+        <Button Name="BotaoCompilar" Classes="ferramenta" Content="🔨 Compilar" ToolTip.Tip="Compilar (Ctrl+B)" />
+        <Button Name="BotaoExecutar" Classes="ferramenta" Content="▶ Executar" ToolTip.Tip="Compilar e executar no terminal abaixo (Ctrl+F5)" />
+        <Button Name="BotaoDepurar" Classes="ferramenta" Content="🐞 Depurar" ToolTip.Tip="Compilar e depurar: para nos pontos de parada (F5)" />
+        <Border Width="1" Margin="6,2" Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+        <Button Name="BotaoContinuar" Classes="ferramenta" Content="⏵ Continuar" ToolTip.Tip="Continuar até o próximo ponto de parada (F5)" />
+        <Button Name="BotaoPausar" Classes="ferramenta" Content="⏸ Pausar" ToolTip.Tip="Pausar o programa onde ele estiver (F6)" />
+        <Button Name="BotaoParar" Classes="ferramenta" Content="⏹ Parar" ToolTip.Tip="Encerrar o programa (Shift+F5)" />
+        <Button Name="BotaoPassoSobre" Classes="ferramenta" Content="↷ Próxima linha" ToolTip.Tip="Executar a linha atual sem entrar em funções (F10)" />
+        <Button Name="BotaoPassoDentro" Classes="ferramenta" Content="↓ Entrar" ToolTip.Tip="Entrar na função chamada nesta linha (F11)" />
+        <Button Name="BotaoPassoFora" Classes="ferramenta" Content="↑ Sair" ToolTip.Tip="Terminar a função atual e voltar a quem chamou (Shift+F11)" />
+        <TextBlock Name="TextoEstado" VerticalAlignment="Center" Margin="12,0" FontWeight="SemiBold" />
+      </WrapPanel>
+    </Border>
+
+    <!-- linha de status do editor (posição + diagnóstico da linha) -->
+    <Border DockPanel.Dock="Bottom" Padding="8,2">
+      <TextBlock Name="TextoLinha" FontSize="12" TextTrimming="CharacterEllipsis" />
+    </Border>
+
+    <Grid RowDefinitions="*,4,260">
+      <Grid Grid.Row="0" ColumnDefinitions="190,4,*">
+        <!-- arquivos -->
+        <DockPanel Grid.Column="0">
+          <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="4">
+            <Button Name="BotaoNovoC" Classes="ferramenta" Content="＋ .c" ToolTip.Tip="Novo arquivo .c" />
+            <Button Name="BotaoNovoH" Classes="ferramenta" Content="＋ .h" ToolTip.Tip="Novo arquivo .h" />
+          </StackPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="titulo" Text="ARQUIVOS" />
+          <ListBox Name="ListaArquivos" FontSize="13" />
+        </DockPanel>
+        <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+        <ContentControl Grid.Column="2" Name="AreaEditor" />
+      </Grid>
+
+      <GridSplitter Grid.Row="1" ResizeDirection="Rows" />
+
+      <!-- painel inferior -->
+      <TabControl Grid.Row="2" Name="AbasInferiores" Padding="0">
+        <TabItem Header="Terminal">
+          <DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" Margin="4">
+              <Button Name="BotaoFimEntrada" DockPanel.Dock="Right" Classes="ferramenta" Content="Fim da entrada"
+                      ToolTip.Tip="Envia EOF (como Ctrl+Z no console) — encerra laços while(scanf(...) != EOF)" />
+              <Button Name="BotaoEnviar" DockPanel.Dock="Right" Classes="ferramenta" Content="Enviar ⏎" />
+              <Button Name="BotaoLimpar" DockPanel.Dock="Right" Classes="ferramenta" Content="Limpar" />
+              <TextBox Name="CaixaEntrada" Watermark="Entrada do programa (o que o scanf vai ler) — Enter envia" />
+            </DockPanel>
+            <ContentControl Name="AreaTerminal" />
+          </DockPanel>
+        </TabItem>
+        <TabItem Name="AbaProblemas" Header="Problemas">
+          <ListBox Name="ListaProblemas" FontSize="13" />
+        </TabItem>
+        <TabItem Name="AbaDepuracao" Header="Depuração">
+          <Grid ColumnDefinitions="*,4,*,4,*">
+            <DockPanel Grid.Column="0">
+              <TextBlock DockPanel.Dock="Top" Classes="titulo" Text="VARIÁVEIS" />
+              <ListBox Name="ListaVariaveis" FontSize="13" />
+            </DockPanel>
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+            <DockPanel Grid.Column="2">
+              <TextBlock DockPanel.Dock="Top" Classes="titulo" Text="PILHA DE CHAMADAS (clique para ver o quadro)" />
+              <ListBox Name="ListaPilha" FontSize="13" />
+            </DockPanel>
+            <GridSplitter Grid.Column="3" ResizeDirection="Columns" />
+            <DockPanel Grid.Column="4">
+              <TextBlock DockPanel.Dock="Top" Classes="titulo" Text="OBSERVAR (ex.: *p, v[0]@5, lista-&gt;prox)" />
+              <DockPanel DockPanel.Dock="Bottom" Margin="4">
+                <Button Name="BotaoObservar" DockPanel.Dock="Right" Classes="ferramenta" Content="＋" />
+                <TextBox Name="CaixaObservar" Watermark="Expressão em C — Enter adiciona" />
+              </DockPanel>
+              <ListBox Name="ListaObservar" FontSize="13" />
+            </DockPanel>
+          </Grid>
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </DockPanel>
+</UserControl>
